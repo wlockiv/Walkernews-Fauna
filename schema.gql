@@ -1,0 +1,79 @@
+type Link {
+  title: String!
+  address: String!
+  createdAt: Time!
+  comments: [Comment!] @relation
+  author: User! @relation
+}
+
+type Comment {
+  content: String!
+  createdAt: Time!
+  link: Link! @relation
+  author: User! @relation
+}
+
+type User {
+  email: String! @unique
+  displayName: String!
+  links: [Link!] @relation
+}
+
+type Query {
+  currentUser: User! @resolver(name: "current_user")
+  links: [Link!]!
+  linkById: Link!
+  # link(id: ID!): Link!
+}
+
+input NewLinkInput {
+  title: String!
+  address: String!
+
+  # Handled by FQL
+  # authorId: ID!
+  # createdAt: Time
+}
+
+input UpdateLinkInput {
+  id: ID!
+  title: String!
+  address: String!
+}
+
+input NewUserInput {
+  displayName: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input NewCommentInput {
+  linkId: ID!
+  content: String!
+}
+
+input UpdateCurrentUserInput {
+  displayName: String!
+  email: String!
+}
+
+type Mutation {
+  # User
+  createUser(input: NewUserInput!): User! @resolver(name: "create_user")
+  loginUser(input: LoginUserInput!): String! @resolver(name: "login_user")
+  updateCurrentUser(input: UpdateCurrentUserInput): User!
+    @resolver(name: "update_current_user")
+
+  # Link
+  createLink(data: NewLinkInput!): Link! @resolver(name: "create_link")
+  updateLink(data: UpdateLinkInput!): Link @resolver(name: "update_link")
+
+  # Comment
+  createComment(data: NewCommentInput!): Comment!
+    @resolver(name: "create_comment")
+}

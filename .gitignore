@@ -1,0 +1,12 @@
+# Fauna
+.faunarc
+
+# Yarn
+node_modules
+
+# VS Code
+.vscode
+
+# Gatsby
+public
+.cache

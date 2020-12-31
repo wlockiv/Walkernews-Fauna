@@ -1,0 +1,12 @@
+{
+  "name": "walkernews-fauna-gql",
+  "version": "1.0.0",
+  "description": "Hackernews clone using FaunaDB & Gatsby",
+  "main": "index.js",
+  "author": "Walker Lockard",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
