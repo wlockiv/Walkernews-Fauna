@@ -1,0 +1,11 @@
+query Links {
+  links {
+    data {
+      address
+      author {
+        email
+        displayName
+      }
+    }
+  }
+}
