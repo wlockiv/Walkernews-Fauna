@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["./packages/www/src/**/*"]
+  "include": ["site/src/**/*"]
 }

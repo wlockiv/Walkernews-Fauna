@@ -7,10 +7,11 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "site",
     "packages/*"
   ],
   "scripts": {
-    "www": "yarn workspace www",
+    "site": "yarn workspace site",
     "type-check": "tsc"
   },
   "devDependencies": {
