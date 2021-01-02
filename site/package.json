@@ -7,7 +7,7 @@
     "develop": "gatsby develop",
     "build": "gatsby build",
     "clean": "gatsby clean",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --require dotenv/config --config codegen.yml dotenv_config_path=.env.development"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",

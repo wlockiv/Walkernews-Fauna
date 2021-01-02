@@ -8,7 +8,7 @@ module.exports = {
     {
       resolve: `gatsby-theme-faunadb`,
       options: {
-        faunaClientKey: process.env.GATSBY_FAUNA_CLIENT_KEY,
+        faunaClientKey: process.env.FAUNA_CLIENT_KEY,
       },
     },
   ],
