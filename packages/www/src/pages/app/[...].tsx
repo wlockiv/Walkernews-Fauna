@@ -5,11 +5,11 @@ import {
   from,
   gql,
 } from "@apollo/client/core";
-import { ApolloProvider, useQuery } from "@apollo/client";
 
 import { LinksQuery } from "../../generated/graphql";
 import React from "react";
 import { setContext } from "@apollo/client/link/context";
+import { useQuery } from "@apollo/client";
 
 const authLink = setContext((request) => ({
   headers: { Authorization: `Bearer ${process.env.GATSBY_FAUNA_CLIENT_KEY}` },
@@ -38,9 +38,7 @@ const query = gql`
 `;
 
 export default () => {
-  const { loading, error, data } = useQuery<LinksQuery>(query, {
-    client: graphqlClient,
-  });
+  const { loading, error, data } = useQuery<LinksQuery>(query);
 
   if (loading) return <h1>Loading</h1>;
   if (error) {
