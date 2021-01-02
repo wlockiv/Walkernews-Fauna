@@ -1,28 +1,8 @@
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  from,
-  gql,
-} from "@apollo/client/core";
+import React, { ReactNode } from 'react';
 
-import { LinksQuery } from "../../generated/graphql";
-import React from "react";
-import { setContext } from "@apollo/client/link/context";
-import { useQuery } from "@apollo/client";
-
-const authLink = setContext((request) => ({
-  headers: { Authorization: `Bearer ${process.env.GATSBY_FAUNA_CLIENT_KEY}` },
-}));
-
-const apolloCache = new InMemoryCache();
-
-const httpLink = new HttpLink({ uri: "https://graphql.fauna.com/graphql" });
-
-const graphqlClient = new ApolloClient({
-  cache: apolloCache,
-  link: from([authLink, httpLink]),
-});
+import { gql } from '@apollo/client/core';
+import { useQuery } from '@apollo/client';
+import { LinksQuery } from '../../generated/graphql';
 
 const query = gql`
   query Links {
@@ -37,7 +17,7 @@ const query = gql`
   }
 `;
 
-export default () => {
+const App: ReactNode = () => {
   const { loading, error, data } = useQuery<LinksQuery>(query);
 
   if (loading) return <h1>Loading</h1>;
@@ -49,11 +29,13 @@ export default () => {
   return (
     <>
       <h1>Links</h1>
-      {data?.links.data.map((d, idx) => (
-        <p key={idx}>
+      {data?.links.data.map((d) => (
+        <p key={d?.address}>
           {d?.address} | {d?.author.displayName}
         </p>
       ))}
     </>
   );
 };
+
+export default App;

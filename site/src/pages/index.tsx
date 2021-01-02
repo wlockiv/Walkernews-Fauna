@@ -1,3 +1,5 @@
-import React from "react";
+import React, { ReactNode } from 'react';
 
-export default () => <h1>Hello, world!</h1>;
+const Index: ReactNode = () => <h1>Hello, world!</h1>;
+
+export default Index;

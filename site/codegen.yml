@@ -10,6 +10,7 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-  ./graphql.schema.json:
+      - "typescript-resolvers"
+  src/generated/graphql.schema.json:
     plugins:
       - "introspection"
