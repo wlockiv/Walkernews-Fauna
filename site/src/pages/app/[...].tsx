@@ -1,24 +1,12 @@
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Box, Container, Heading, IconButton, Text, Flex, Link } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
-
-import { gql } from '@apollo/client/core';
-import { useQuery } from '@apollo/client';
-import { LinksQuery } from '../../generated/graphql';
-
-const query = gql`
-  query Links {
-    links {
-      data {
-        address
-        author {
-          displayName
-        }
-      }
-    }
-  }
-`;
+import Layout from '../../components/layout';
+import LinkList from '../../components/link-list';
+import { useLinksQuery } from '../../generated/graphql';
 
 const App: ReactNode = () => {
-  const { loading, error, data } = useQuery<LinksQuery>(query);
+  const { loading, error, data } = useLinksQuery();
 
   if (loading) return <h1>Loading</h1>;
   if (error) {
@@ -27,14 +15,13 @@ const App: ReactNode = () => {
   }
 
   return (
-    <>
-      <h1>Links</h1>
-      {data?.links.data.map((d) => (
-        <p key={d?.address}>
-          {d?.address} | {d?.author.displayName}
-        </p>
-      ))}
-    </>
+    <Layout>
+      <Container minW="xl" maxW="2xl">
+        <Heading as="h1">Newest Links</Heading>
+        {data ? <LinkList data={data} /> : <></>}
+        {/* <LinkList links={data?.links.data} /> */}
+      </Container>
+    </Layout>
   );
 };
 

@@ -5,6 +5,7 @@ require("dotenv").config({
 module.exports = {
   plugins: [
     `gatsby-plugin-typescript`,
+    `gatsby-theme-chakra`,
     {
       resolve: `gatsby-theme-faunadb`,
       options: {

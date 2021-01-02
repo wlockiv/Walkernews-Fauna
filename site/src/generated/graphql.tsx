@@ -323,7 +323,7 @@ export type LinksQuery = (
     { __typename?: 'LinkPage' }
     & { data: Array<Maybe<(
       { __typename?: 'Link' }
-      & Pick<Link, 'address'>
+      & Pick<Link, '_id' | 'address' | 'createdAt' | 'title'>
       & { author: (
         { __typename?: 'User' }
         & Pick<User, 'email' | 'displayName'>
@@ -337,7 +337,10 @@ export const LinksDocument = gql`
     query Links {
   links {
     data {
+      _id
       address
+      createdAt
+      title
       author {
         email
         displayName

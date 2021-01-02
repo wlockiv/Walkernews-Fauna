@@ -1,7 +1,10 @@
 query Links {
   links {
     data {
+      _id
       address
+      createdAt
+      title
       author {
         email
         displayName
