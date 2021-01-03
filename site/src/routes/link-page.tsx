@@ -16,17 +16,19 @@ const LinkPage: React.FC<RouteComponentProps & LinkPageURLParams> = ({ linkId })
     return <p>error...</p>;
   }
 
+  const link = data.findLinkByID;
+
   return (
     <>
       <Box borderWidth="1px" borderRadius="md" padding={2} mb={1}>
-        <ChakraLink to={data.findLinkByID.address} isExternal>
-          <Heading fontSize="2xl">{data.findLinkByID.title}</Heading>
+        <ChakraLink to={link.address} isExternal>
+          <Heading fontSize="2xl">{link.title}</Heading>
         </ChakraLink>
         <Text fontSize="sm" color="gray.500">
-          By {data.findLinkByID.author.displayName} | {data.findLinkByID.createdAt}
+          By {link.author.displayName} | {link.createdAt}
         </Text>
       </Box>
-      {data.findLinkByID.comments.data.map((d) => (
+      {link.comments.data.map((d) => (
         <Box key={d?._id} padding={2} pl={6} borderWidth="1px" borderRadius="md" my={2}>
           <Text fontSize="sm" color="gray.500">
             {d?.author.displayName} | {d?.createdAt}
