@@ -26,6 +26,7 @@ module.exports = {
     Cypress: true,
   },
   rules: {
+    "no-underscore-dangle": 0,
     "@typescript-eslint/no-unused-vars": [
       1,
       {

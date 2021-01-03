@@ -12,3 +12,26 @@ query Links {
     }
   }
 }
+
+query FindLinkByID($linkId: ID!) {
+  findLinkByID(id: $linkId) {
+    _id
+    title
+    address
+    createdAt
+    author {
+      displayName
+    }
+    comments {
+      data {
+        _id
+        author {
+          _id
+          displayName
+        }
+        content
+        createdAt
+      }
+    }
+  }
+}

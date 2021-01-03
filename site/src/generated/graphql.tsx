@@ -332,6 +332,33 @@ export type LinksQuery = (
   ) }
 );
 
+export type FindLinkByIdQueryVariables = Exact<{
+  linkId: Scalars['ID'];
+}>;
+
+
+export type FindLinkByIdQuery = (
+  { __typename?: 'Query' }
+  & { findLinkByID?: Maybe<(
+    { __typename?: 'Link' }
+    & Pick<Link, '_id' | 'title' | 'address' | 'createdAt'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'displayName'>
+    ), comments: (
+      { __typename?: 'CommentPage' }
+      & { data: Array<Maybe<(
+        { __typename?: 'Comment' }
+        & Pick<Comment, '_id' | 'content' | 'createdAt'>
+        & { author: (
+          { __typename?: 'User' }
+          & Pick<User, '_id' | 'displayName'>
+        ) }
+      )>> }
+    ) }
+  )> }
+);
+
 
 export const LinksDocument = gql`
     query Links {
@@ -374,6 +401,56 @@ export function useLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Link
 export type LinksQueryHookResult = ReturnType<typeof useLinksQuery>;
 export type LinksLazyQueryHookResult = ReturnType<typeof useLinksLazyQuery>;
 export type LinksQueryResult = Apollo.QueryResult<LinksQuery, LinksQueryVariables>;
+export const FindLinkByIdDocument = gql`
+    query FindLinkByID($linkId: ID!) {
+  findLinkByID(id: $linkId) {
+    _id
+    title
+    address
+    createdAt
+    author {
+      displayName
+    }
+    comments {
+      data {
+        _id
+        author {
+          _id
+          displayName
+        }
+        content
+        createdAt
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindLinkByIdQuery__
+ *
+ * To run a query within a React component, call `useFindLinkByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLinkByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLinkByIdQuery({
+ *   variables: {
+ *      linkId: // value for 'linkId'
+ *   },
+ * });
+ */
+export function useFindLinkByIdQuery(baseOptions: Apollo.QueryHookOptions<FindLinkByIdQuery, FindLinkByIdQueryVariables>) {
+        return Apollo.useQuery<FindLinkByIdQuery, FindLinkByIdQueryVariables>(FindLinkByIdDocument, baseOptions);
+      }
+export function useFindLinkByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindLinkByIdQuery, FindLinkByIdQueryVariables>) {
+          return Apollo.useLazyQuery<FindLinkByIdQuery, FindLinkByIdQueryVariables>(FindLinkByIdDocument, baseOptions);
+        }
+export type FindLinkByIdQueryHookResult = ReturnType<typeof useFindLinkByIdQuery>;
+export type FindLinkByIdLazyQueryHookResult = ReturnType<typeof useFindLinkByIdLazyQuery>;
+export type FindLinkByIdQueryResult = Apollo.QueryResult<FindLinkByIdQuery, FindLinkByIdQueryVariables>;
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
